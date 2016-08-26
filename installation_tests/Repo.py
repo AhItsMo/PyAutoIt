@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import clr
 import os
 import autoit
@@ -51,26 +52,34 @@ class Repo:
         # autoit.win_wait_active("Jenkins 1.651.2 Setup", 5)
 
     # ASTA automated installation - WIP/Incomplete
-    def install_ast(self):
+    @staticmethod
+    def install_ast():
         autoit.auto_it_set_option("MouseClickDelay", 1000)
         autoit.run("D:\Automation\Projects\WhiteRide\Repo\setup.exe")
 
         window_name = "CareFusion - Alaris System Tracking Application Configuration v3.0"
-        # autoit.win_wait_active(window_name, 30)
-        autoit.control_wait_visible(window_name, "[ID:2495]", "IsVisible")
-        autoit.control_click_wait(window_name, "[ID:2495]", 20)     # Welcome screen - Next
+        autoit.win_wait_active(window_name, 30)
 
-        # window_name = "CareFusion - Alaris System Tracking Application Configuration v3.0 - InstallShield Wizard"
-        # autoit.win_wait_active(window_name, 30)
-        # autoit.control_click_wait(window_name, "[ID:2125]", 10)     # Data Base Inst. Mode - New Instance RadioButton
-        # autoit.control_click(window_name, "[ID:2495]")              # Data Base Inst. Mode - Next
-        #
-        # window_name = "CareFusion - Alaris System Tracking Application Configuration v3.0"
-        # autoit.win_wait_active(window_name, 30)
-        # autoit.control_click_wait(window_name, "[ID:2495]", 20)     # Data Base Initialization - Next
-        # autoit.control_click_wait(window_name, "[ID:2524]", 120)    # Ready to Install - Install
+        autoit.control_wait_visible(window_name, "[ID:2495]", "IsVisible", 30)
+        autoit.control_click_wait(window_name, "[ID:2495]", 20)  # Welcome screen - Next
 
+        window_name = "CareFusion - Alaris System Tracking Application Configuration v3.0 - InstallShield Wizard"
+        autoit.win_wait_active(window_name, 30)
+        autoit.control_click(window_name, "[ID:2602]")  # Database - Select existing instance
+        autoit.control_custom_sleep(2000)   # Sometimes the event is missed. Needs a delay first.
+        autoit.control_click_wait(window_name, "[ID:2495]", 20)  # Database - Next
 
+        window_name = "CareFusion - Alaris System Tracking Application Configuration v3.0"
+        autoit.win_wait_active(window_name, 30)
+
+        autoit.control_wait_visible(window_name, "[ID:1685]", 20)   # Wait till a control on the next screen is visible
+        autoit.control_click_wait(window_name, "[ID:2495]", 20)  # Database Location - Next
+
+        autoit.control_wait_visible(window_name, "[ID:2524]", 10)   # Wait till Install button is visible
+        autoit.control_click(window_name, "[ID:2524]")   # Ready screen - Install
+
+        autoit.control_wait_visible(window_name, "[ID:2549]", 180)  # Wait till Finish button is visible
+        autoit.control_click(window_name, "[ID:2549]")  # Final screen - Finish
 
 
     # def click_add_task_button(self):
@@ -93,3 +102,30 @@ class Repo:
     #     button.Click()
         # from CodedUITestProject12 import CodedUITestProject2
         # CodedUITestProject2.CodedUITest1.CodedUITestMethod1()
+
+    # CQI 4.3 automated installation - WIP/Incomplete
+    def Install_CQI(self):
+        autoit.auto_it_set_option("MouseClickDelay", 1000)
+        autoit.run("D:\CareFusion\CQI 4.3\Release\Guardrails CQI - Setup-4.3.exe")
+
+        window_name = "[Class:MsiDialogCloseClass]"
+        autoit.win_wait_active(window_name, 30)
+
+        autoit.control_wait_visible(window_name, "[ID:2271]", 30)
+        autoit.control_click_wait(window_name, "[ID:2271]", 20)  # Welcome screen - Next
+
+        autoit.control_click_wait(window_name, "[ID:2172]", 20)  # License screen - Accept Rad Button
+        autoit.control_wait_enabled(window_name, "[ID:2271]", 30)   # Wait till Next Button is enabled after accepting
+        autoit.control_click(window_name, "[ID:2271]")  # License screen - Next
+
+        autoit.control_wait_enabled(window_name, "[ID:2271]", 30)   # Language screen - Next
+        autoit.control_wait_visible(window_name, "[ID:2271]", 30)
+        autoit.control_click(window_name, "[ID:2271]")  # Language screen - Next
+
+        autoit.control_wait_visible(window_name, "[ID:2271]", 30)  # SetupType screen - Next
+        autoit.control_custom_sleep(2000)   # Sometimes the event is missed. Needs a delay first.
+        autoit.control_click_wait(window_name, "[ID:2271]", 10)  # SetupType screen - Next
+
+        
+
+

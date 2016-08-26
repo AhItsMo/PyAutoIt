@@ -48,7 +48,7 @@ def control_wait_visible(title, control, delay, buf_size=256,  **kwargs):
     command = "IsVisible"
     ret = 0
     delay_counter = 0
-    while ret <> 1 and delay_counter < delay:
+    while ret <> "1" and delay_counter < delay:
         text = kwargs.get("text", "")
         extra = kwargs.get("extra", "")
         result = ctypes.create_unicode_buffer(buf_size)
@@ -61,7 +61,54 @@ def control_wait_visible(title, control, delay, buf_size=256,  **kwargs):
         delay_counter = delay_counter + 1
         # For Debugging
         print "Delay Counter: " + str(delay_counter) + ". And Ret: " + str(ret)
+
+    print "Control (" + control + ") in " + title + " is now visible."
+    time.sleep(1)
     return ret
+
+@api.check(2, "Custom waiting for control to be visible timed out.")
+def control_wait_enabled(title, control, delay, buf_size=256,  **kwargs):
+    """
+
+    :param title:
+    :param control:
+    :param delay: The period in which the code attempts to click the control, before timeout occurs
+    :return:
+    """
+    import time
+    command = "IsEnabled"
+    ret = 0
+    delay_counter = 0
+    while ret <> "1" and delay_counter < delay:
+        text = kwargs.get("text", "")
+        extra = kwargs.get("extra", "")
+        result = ctypes.create_unicode_buffer(buf_size)
+        AUTO_IT.AU3_ControlCommand(LPCWSTR(title), LPCWSTR(text), LPCWSTR(control),
+                                   LPCWSTR(command), LPCWSTR(extra),
+                                   result, INT(buf_size))
+
+        ret = result.value.rstrip()
+        time.sleep(1)
+        delay_counter = delay_counter + 1
+        # For Debugging
+        print "Delay Counter: " + str(delay_counter) + ". And Ret: " + str(ret)
+
+    print "Control (" + control + ") in " + title + " is now Enabled."
+    return ret
+
+@api.check(2, "custom code failed, could not sleep")
+def control_custom_sleep(delay):
+    """
+
+    :param title:
+    :param timeout:
+    :param kwargs:
+    :return:
+    """
+
+    AUTO_IT.AU3_Sleep(delay)
+
+    return
 #EndCustomCode
 
 

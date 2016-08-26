@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20160826 12:23:04.046" generator="Robot 3.0 (Python 2.7.12 on win32)">
+<suite source="D:\Automation\Projects\PyAutoIt\installation_tests" id="s1" name="Installation Tests">
+<suite source="D:\Automation\Projects\PyAutoIt\installation_tests\msi_tests.robot" id="s1-s1" name="Msi Tests">
+<test id="s1-s1-t1" name="installation_test">
+<kw name="Install Ast" library="Repo">
+<msg timestamp="20160826 12:23:06.277" level="INFO">Delay Counter: 1. And Ret: 1
+Control ([ID:2549]) in CareFusion - Alaris System Tracking Application Configuration v3.0 is now visible.</msg>
+<status status="PASS" endtime="20160826 12:23:06.277" starttime="20160826 12:23:04.233"></status>
+</kw>
+<status status="PASS" endtime="20160826 12:23:06.277" critical="yes" starttime="20160826 12:23:04.233"></status>
+</test>
+<doc>This is a Demo Project to test the intergration between RobotFramework and Teststack.White.
+The purpose of this Demo is to use White functionality in a Test Project using Robot.</doc>
+<status status="PASS" endtime="20160826 12:23:06.277" starttime="20160826 12:23:04.061"></status>
+</suite>
+<status status="PASS" endtime="20160826 12:23:06.277" starttime="20160826 12:23:04.046"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="0" pass="1">Critical Tests</stat>
+<stat fail="0" pass="1">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="0" id="s1" name="Installation Tests" pass="1">Installation Tests</stat>
+<stat fail="0" id="s1-s1" name="Msi Tests" pass="1">Installation Tests.Msi Tests</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
